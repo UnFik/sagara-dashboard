@@ -115,7 +115,7 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: "Action",
+    accessorKey: "id",
     header: ({ column }) => {
       return (
         <Button
@@ -129,9 +129,8 @@ export const columns: ColumnDef<Student>[] = [
       );
     },
     cell: ({ row }) => {
-      return (
-       <RowAction />
-      );
+      const id: number = Number(row.getValue("id"));
+      return <RowAction id={id} />;
     },
   },
 ];

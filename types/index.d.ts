@@ -36,10 +36,13 @@ export type DashboardConfig = {
 };
 
 interface Student {
-    id: string;
+    id: number;
     name: string;
     email: string;
     phone: string;
     instance: string;
-    createdAt: string;
+    password: string;
+    image: string;
+    createdAt: Date;
+    updatedAt: Date;  
 }

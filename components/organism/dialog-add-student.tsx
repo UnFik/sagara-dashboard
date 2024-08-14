@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,20 +15,28 @@ import { FormMutationStudent } from "../templates/form-mutation-student";
 import { Icons } from "../molecules/shadcn/icons";
 
 export default function DialogAddStudent() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const closeDialog = () => {
+    setShowDialog(false);
+  };
   return (
-    <div>
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button variant={"default"} onClick={() => {}}>
-            <span>
-              <Icons.plus className="w-4 h-4 mr-3" />
-            </span>
-            Add User
-          </Button>
-        </AlertDialogTrigger>
+    <>
+      <Button
+        variant={"default"}
+        onClick={() => {
+          setShowDialog(true);
+        }}
+      >
+        <span>
+          <Icons.plus className="w-4 h-4 mr-3" />
+        </span>
+        Add User
+      </Button>
+      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
         <AlertDialogContent className="sm:max-w-[800px]">
           <AlertDialogHeader className="flex flex-row justify-between items-center align-middle">
-            <AlertDialogTitle className="text-2xl">
+            <AlertDialogTitle className="text-xl">
               Add New Student
             </AlertDialogTitle>
             <AlertDialogCancel className="bg-transparent border-none">
@@ -38,9 +46,9 @@ export default function DialogAddStudent() {
             </AlertDialogCancel>
           </AlertDialogHeader>
           <div className="border-b"></div>
-          <FormMutationStudent />
+          <FormMutationStudent closeDialog={closeDialog}/>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </>
   );
 }

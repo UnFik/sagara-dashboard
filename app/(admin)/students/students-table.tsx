@@ -63,7 +63,7 @@ export function StudentsDataTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-
+  const [filter, setFilter] = useState<string>("instance");
   const table = useReactTable({
     data,
     columns,
@@ -95,11 +95,17 @@ export function StudentsDataTable<TData, TValue>({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="flex flex-col gap-2">
-              <Select>
+              <Select
+                onValueChange={(e) => {
+                  setFilter(e);
+                }}
+              >
                 <SelectTrigger className="w-[180px] bg-white">
                   <SelectValue
-                    placeholder="Instance"
-                    defaultValue={"Instance"}
+                    placeholder={
+                      filter.charAt(0).toUpperCase() + filter.slice(1)
+                    }
+                    defaultValue={filter}
                   />
                 </SelectTrigger>
                 <SelectContent>
@@ -125,8 +131,14 @@ export function StudentsDataTable<TData, TValue>({
                 className="text-gray-700 w-[180px]"
               />
               <Input
-                placeholder="Enter Condition"
-                className="bg-white w-[180px]"
+                placeholder="Search"
+                value={
+                  (table.getColumn(filter)?.getFilterValue() as string) ?? ""
+                }
+                onChange={(event) =>
+                  table.getColumn(filter)?.setFilterValue(event.target.value)
+                }
+                className="max-w-sm bg-white"
               />
               <Button>Add Filter</Button>
             </DropdownMenuContent>
@@ -137,9 +149,9 @@ export function StudentsDataTable<TData, TValue>({
         <div className="flex flex-row gap-2">
           <Input
             placeholder="Search"
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
             className="max-w-sm bg-white"
           />

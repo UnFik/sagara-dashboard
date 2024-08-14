@@ -18,24 +18,28 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/molecules/shadcn/alert-dialog";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/molecules/shadcn/dialog";
-import { FormMutationStudent } from "../templates/form-mutation-student";
 
-export default function RowAction() {
+import { FormMutationStudent } from "../templates/form-mutation-student";
+import { deleteStudent } from "@/actions/students";
+import { useRouter } from "next/navigation";
+import { toast } from "../molecules/shadcn/use-toast";
+import { useGetStudent } from "@/hooks/use-get-student";
+
+interface RowActionProps {
+  id: number;
+}
+
+export default function RowAction({ id }: RowActionProps) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showDialogDelete, setShowDialogDelete] = useState(false);
   const [showDialogEdit, setShowDialogEdit] = useState(false);
+
+  const { data, isLoading } = useGetStudent(id);
+  const closeDialog = () => {
+    setShowDialogEdit(false);
+  };
 
   return (
     <>
@@ -90,18 +94,17 @@ export default function RowAction() {
             <AlertDialogAction
               className="bg-red-600 focus:ring-red-600"
               onClick={async () => {
-                // setLoading(true);
-                // const res = await deletePrestasiById(id).finally(() => {
-                //   setLoading(false);
-                //   setShowDialog(false);
-                //   router.refresh();
-                //   isAdmin ? window.location.reload() : null;
-                // });
-                // toast({
-                //   title: "Data berhasil dihapus",
-                //   description: `Data prestasi ${res.subkegiatan} berhasil dihapus`,
-                //   variant: "success",
-                // });
+                setLoading(true);
+                const res = await deleteStudent(id).finally(() => {
+                  setLoading(false);
+                  setShowDialogDelete(false);
+                  router.refresh();
+                });
+                toast({
+                  title: "User Data Deleted",
+                  description: `User Data ${res.name} has been deleted`,
+                  variant: "success",
+                });
               }}
             >
               {loading ? (
@@ -121,7 +124,7 @@ export default function RowAction() {
         <AlertDialogContent className="sm:max-w-[800px]">
           <AlertDialogHeader className="flex flex-row justify-between items-center align-middle">
             <AlertDialogTitle className="text-2xl">
-              Add New Student
+              Edit Data Student
             </AlertDialogTitle>
             <Button
               size={"icon"}
@@ -135,7 +138,7 @@ export default function RowAction() {
           </AlertDialogHeader>
 
           <div className="border-b"></div>
-          <FormMutationStudent />
+          {data && <FormMutationStudent student={data} closeDialog={closeDialog}/>}
         </AlertDialogContent>
       </AlertDialog>
     </>
