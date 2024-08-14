@@ -21,7 +21,7 @@ import {
 } from "@/components/molecules/shadcn/alert-dialog";
 
 import { FormMutationStudent } from "../templates/form-mutation-student";
-import { deleteStudent } from "@/actions/students";
+import { deleteStudentAction } from "@/actions/_actions";
 import { useRouter } from "next/navigation";
 import { toast } from "../molecules/shadcn/use-toast";
 import { useGetStudent } from "@/hooks/use-get-student";
@@ -95,7 +95,7 @@ export default function RowAction({ id }: RowActionProps) {
               className="bg-red-600 focus:ring-red-600"
               onClick={async () => {
                 setLoading(true);
-                const res = await deleteStudent(id).finally(() => {
+                const res = await deleteStudentAction(id).finally(() => {
                   setLoading(false);
                   setShowDialogDelete(false);
                   router.refresh();
