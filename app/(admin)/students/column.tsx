@@ -113,6 +113,15 @@ export const columns: ColumnDef<Student>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("createdAt"));
+       return date.toLocaleDateString("en-US", {
+         weekday: "long",
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+       });
+    },
   },
   {
     accessorKey: "id",

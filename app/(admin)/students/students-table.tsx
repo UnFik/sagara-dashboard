@@ -89,9 +89,9 @@ export function StudentsDataTable<TData, TValue>({
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto bg-white text-black">
                 <span>
-                  <Icons.filter className="w-4 h-4 mr-3" />
+                  <Icons.filter className="w-4 h-4 sm:mr-3" />
                 </span>
-                Filter
+                <span className="max-md:hidden">Filter</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="flex flex-col gap-2">
@@ -219,9 +219,7 @@ export function StudentsDataTable<TData, TValue>({
         </Button>
 
         <Pagination>
-          <PaginationContent>
-            {/* // make pagination number max just 7 number */}
-
+          <PaginationContent className="max-sm:hidden">
             {table.getPageCount() > 0 &&
               Array.from({ length: Math.min(7, table.getPageCount()) }).map(
                 (_, i) => {

@@ -40,7 +40,7 @@ const chartConfig = {
 
 export function ChartDashboard() {
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Students</CardTitle>
       </CardHeader>

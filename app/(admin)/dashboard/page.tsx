@@ -12,11 +12,11 @@ import { ChartDashboard } from "@/components/templates/chart-dashboard";
 
 export default function page() {
   return (
-    <div className="bg-background">
-      <div className="flex flex-row justify-between w-full">
+    <div className="grid bg-background mx-2">
+      <div className="flex md:flex-row flex-col gap-2 justify-between w-full">
         <DatePickerWithRange />
         <Select>
-          <SelectTrigger className="w-[180px] bg-white shadow-sm font-semibold">
+          <SelectTrigger className="w-[150px] md:w-[180px] bg-white shadow-sm font-semibold">
             <SelectValue placeholder="Daily" />
           </SelectTrigger>
           <SelectContent>
@@ -26,7 +26,7 @@ export default function page() {
           </SelectContent>
         </Select>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-10">
+      <div className="grid gap-4 md:grid-cols-3 md:gap-8 lg:grid-cols-3 mt-10 max-md:w-[90vw]">
         <CardDashboard title="Total Students" amount={513} percentage={8.5} />
         <CardDashboard
           title="Total Certified Students"
@@ -39,7 +39,7 @@ export default function page() {
           percentage={8.5}
         />
       </div>
-      <div className="mt-10">
+      <div className="mt-10 max-md:w-[90vw]">
         <ChartDashboard />
       </div>
     </div>

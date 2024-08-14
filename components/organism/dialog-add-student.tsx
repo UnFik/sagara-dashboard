@@ -29,9 +29,9 @@ export default function DialogAddStudent() {
         }}
       >
         <span>
-          <Icons.plus className="w-4 h-4 mr-3" />
+          <Icons.plus className="w-4 h-4 md:mr-3" />
         </span>
-        Add User
+        <span className="max-md:hidden">Add User</span>
       </Button>
       <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
         <AlertDialogContent className="sm:max-w-[800px]">
@@ -46,7 +46,7 @@ export default function DialogAddStudent() {
             </AlertDialogCancel>
           </AlertDialogHeader>
           <div className="border-b"></div>
-          <FormMutationStudent closeDialog={closeDialog}/>
+          <FormMutationStudent closeDialog={closeDialog} />
         </AlertDialogContent>
       </AlertDialog>
     </>

@@ -15,7 +15,7 @@ export const Navbar = ({ items }: MainNavProps) => {
   return (
     <div className="flex items-center gap-x-4 p-5 pe-10 border-b bg-white shadow-md">
       <div className="flex flex-1 ms-3 items-center">
-        <div className="flex md:hidden">
+        <div className="flex lg:hidden">
           <SheetNav items={items || []} />
         </div>
       </div>
