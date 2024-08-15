@@ -21,6 +21,8 @@ import { Icons } from "../molecules/shadcn/icons";
 import { AlertDialogCancel } from "../molecules/shadcn/alert-dialog";
 import { Student } from "@/types";
 import { addStudentAction, updateStudentAction } from "@/actions/_actions";
+import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
 
 export const FormSchema = z.object({
   id: z.number(),
@@ -61,6 +63,7 @@ export function FormMutationStudent({
   student,
   closeDialog,
 }: FormMutationStudentProps) {
+  const router = useRouter();
   const [loading, setLoading] = useState<Boolean>(false);
   let isAdd: Boolean;
   student ? (isAdd = false) : (isAdd = true);
@@ -120,8 +123,11 @@ export function FormMutationStudent({
       }`,
       variant: "success",
     });
+
     setLoading(false);
     closeDialog();
+    router.refresh(); 
+    revalidatePath("/admin/students");
   };
 
   return (

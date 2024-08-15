@@ -25,6 +25,7 @@ import { deleteStudentAction } from "@/actions/_actions";
 import { useRouter } from "next/navigation";
 import { toast } from "../molecules/shadcn/use-toast";
 import { useGetStudent } from "@/hooks/use-get-student";
+import { revalidatePath } from "next/cache";
 
 interface RowActionProps {
   id: number;
@@ -99,6 +100,7 @@ export default function RowAction({ id }: RowActionProps) {
                   setLoading(false);
                   setShowDialogDelete(false);
                   router.refresh();
+                  revalidatePath("/admin/students");
                 });
                 toast({
                   title: "User Data Deleted",
@@ -138,7 +140,9 @@ export default function RowAction({ id }: RowActionProps) {
           </AlertDialogHeader>
 
           <div className="border-b"></div>
-          {data && <FormMutationStudent student={data} closeDialog={closeDialog}/>}
+          {data && (
+            <FormMutationStudent student={data} closeDialog={closeDialog} />
+          )}
         </AlertDialogContent>
       </AlertDialog>
     </>

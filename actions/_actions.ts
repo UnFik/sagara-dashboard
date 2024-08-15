@@ -1,15 +1,22 @@
 import { FormSchema } from "@/components/templates/form-mutation-student";
-import { addStudent, deleteStudent, getStudent, getStudents, updateStudent } from "./students";
+import {
+  addStudent,
+  deleteStudent,
+  getStudent,
+  getStudents,
+  updateStudent,
+} from "./students";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 export async function addStudentAction(data: z.infer<typeof FormSchema>) {
   const res = await addStudent(data);
+
   return res;
 }
 
 export async function updateStudentAction(data: z.infer<typeof FormSchema>) {
   const res = await updateStudent(data);
-
   return res;
 }
 
