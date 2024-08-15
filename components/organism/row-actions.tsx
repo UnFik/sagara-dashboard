@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../molecules/shadcn/button";
 import { Icons } from "../molecules/shadcn/icons";
 import {
@@ -37,10 +37,14 @@ export default function RowAction({ id }: RowActionProps) {
   const [showDialogDelete, setShowDialogDelete] = useState(false);
   const [showDialogEdit, setShowDialogEdit] = useState(false);
 
-  const { data, isLoading } = useGetStudent(id);
+  const { data, isLoading, refetch } = useGetStudent(id);
   const closeDialog = () => {
     setShowDialogEdit(false);
   };
+  console.log(id);
+  useEffect(() => {
+    refetch();
+  }, [id, refetch]);
 
   return (
     <>
@@ -100,7 +104,6 @@ export default function RowAction({ id }: RowActionProps) {
                   setLoading(false);
                   setShowDialogDelete(false);
                   router.refresh();
-                  revalidatePath("/admin/students");
                 });
                 toast({
                   title: "User Data Deleted",

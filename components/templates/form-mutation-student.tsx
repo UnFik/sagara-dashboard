@@ -126,8 +126,7 @@ export function FormMutationStudent({
 
     setLoading(false);
     closeDialog();
-    router.refresh(); 
-    revalidatePath("/admin/students");
+    router.refresh();
   };
 
   return (
